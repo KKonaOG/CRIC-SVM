@@ -6,5 +6,4 @@ Python 3.11.8
 
 
 ## Dataset
-CRIC-SVM was trained using a portion of the K-Radar (KAIST-Radar) dataset. 
-`https://github.com/kaist-avelab/K-Radar`
+CRIC-SVM was trained using a portion of the [K-Radar](https://github.com/kaist-avelab/K-Radar) (KAIST-Radar) dataset.
