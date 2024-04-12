@@ -3,6 +3,8 @@ from sklearn.datasets import make_blobs
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import seaborn as sns
 import numpy as np
 import pandas as pd
 
@@ -41,6 +43,16 @@ svm_model.fit(X_train_scaled, y_train)
 # plt.show()
 
 accuracy = svm_model.score(X_test_scaled, y_test)
+y_predict = svm_model.predict(X_test_scaled)
+cm = confusion_matrix(y_true=y_test, y_pred=y_predict)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=svm_model.classes_, yticklabels=svm_model.classes_)
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Confusion Matrix for SVM Classifier')
+plt.show()
+
+
 print("Accuracy: " + str(accuracy))
 
 
