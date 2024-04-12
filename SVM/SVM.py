@@ -3,7 +3,7 @@ from sklearn.datasets import make_blobs
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, f1_score, recall_score, precision_score, accuracy_score
 import seaborn as sns
 import numpy as np
 import pandas as pd
@@ -22,7 +22,7 @@ X_test_scaled = scaler.transform(X_test)
 # Possible changes: kernel (separate from Gp kernel), C parameter for regularization, gamma for , cache_size for speed that cost RAM
 # for GP, focus on C and gamma
 
-svm_model = SVC(kernel='rbf', C=400, gamma = 'scale', decision_function_shape='ovo')
+svm_model = SVC(kernel='rbf', C=405, gamma = 'scale', decision_function_shape='ovo')
 svm_model.fit(X_train_scaled, y_train)
 
 # # Create a mesh to plot the decision boundaries
@@ -42,8 +42,15 @@ svm_model.fit(X_train_scaled, y_train)
 # plt.title('SVM Multi-Class Classification')
 # plt.show()
 
-accuracy = svm_model.score(X_test_scaled, y_test)
 y_predict = svm_model.predict(X_test_scaled)
+precision = precision_score(y_true=y_test, y_pred=y_predict, average='macro')
+accuracy = accuracy_score(y_true=y_test, y_pred=y_predict)
+recall = recall_score(y_true=y_test, y_pred=y_predict, average='macro')
+f1 = f1_score(y_true=y_test, y_pred=y_predict, average='macro')
+
+
+print("Accuracy: {}\nRecall: {}\nPrecision: {}\nF1: {}".format(accuracy, recall, precision, f1))
+
 cm = confusion_matrix(y_true=y_test, y_pred=y_predict)
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=svm_model.classes_, yticklabels=svm_model.classes_)
@@ -53,6 +60,5 @@ plt.title('Confusion Matrix for SVM Classifier')
 plt.show()
 
 
-print("Accuracy: " + str(accuracy))
 
 
