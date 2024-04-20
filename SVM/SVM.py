@@ -8,7 +8,7 @@ import seaborn as sns
 import numpy as np
 import pandas as pd
 
-kradar_dataset = pd.read_csv('/mnt/KRadar/dataset_simplified/radar_quantified/kradar_processed.csv')
+kradar_dataset = pd.read_csv('kradar_processed.csv')
 kradar_dataset = kradar_dataset.drop(columns=['Dataset', 'Frame Number', 'Max Intensity', 'Min Intensity', 'X Size', 'Y Size'])
 
 X_train, X_test, y_train, y_test = train_test_split(kradar_dataset[['Avg Intensity', 'Total Size']], kradar_dataset['Label'], test_size=0.3)
@@ -22,7 +22,7 @@ X_test_scaled = scaler.transform(X_test)
 # Possible changes: kernel (separate from Gp kernel), C parameter for regularization, gamma for , cache_size for speed that cost RAM
 # for GP, focus on C and gamma
 
-svm_model = SVC(kernel='rbf', C=405, gamma = 'scale', decision_function_shape='ovo')
+svm_model = SVC(kernel='rbf', C=400, gamma = 'scale', decision_function_shape='ovo')
 svm_model.fit(X_train_scaled, y_train)
 
 # # Create a mesh to plot the decision boundaries

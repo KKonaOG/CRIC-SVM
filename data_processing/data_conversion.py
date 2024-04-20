@@ -24,7 +24,7 @@ data_directory is an individual datasequence from the K-Radar dataset.
 It should at the minimum contain the radar_tesseract and info_labels folders from
 the datasequence
 '''
-data_directory = "K:/dataset"
+data_directory = "/mnt/KRadar/dataset_raw/"
 
 '''
 converted_directory is the output location for the processed (converted) radar tensors
@@ -34,7 +34,7 @@ as a color normalization value in grayscale when saved. In order to re-obtain da
 this color mapping, minimum and maximum values of this axis are saved alongside the converted frames
 for use in reconstruction.
 '''
-converted_directory = "K:/dataset_simplified/radar_images"
+converted_directory = "/mnt/KRadar/dataset_simplified/"
 
 '''
 info_arr.mat is obtained from the resources section of the K-Radar GitHub and
@@ -140,6 +140,3 @@ if __name__ == "__main__":
     # Utilizes 10 cores in a Pool to work on the tesseracts obtained by the obtain_tesseract_paths function
     with Pool(processes=10) as pool:
         pool.map(process_tesseract, tesseractNames)
-    
-    
-# This converter is really only ran once and should not need to be used in a "live" environment.
