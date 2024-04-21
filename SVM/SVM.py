@@ -71,7 +71,7 @@ def expected_improvement(X, gp_model, best_y):
 kradar_dataset = pd.read_csv('kradar_processed.csv')
 kradar_dataset = kradar_dataset.drop(columns=['Dataset', 'Frame Number', 'Max Intensity', 'Min Intensity', 'X Size', 'Y Size'])
 
-X_train, X_test, y_train, y_test = train_test_split(kradar_dataset[['Avg Intensity', 'Total Size']], kradar_dataset['Label'], test_size=0.3)
+X_train, X_test, y_train, y_test = train_test_split(kradar_dataset[['Avg Intensity', 'Total Size']], kradar_dataset['Label'], test_size=0.3, random_state=6693)
 
 # Standardize features
 scaler = StandardScaler()
