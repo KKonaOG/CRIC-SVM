@@ -94,7 +94,7 @@ training_indices = rng.choice(np.arange(len(parameters_range)), size=10, replace
 parameters_samples = parameters_range[training_indices]
 
 # Obtains the kernel for the GP regression model
-kernel = 1 * RBF(length_scale=2.0, length_scale_bounds=(1e-5, 1e5)) + DotProduct(sigma_0=2.0, sigma_0_bounds=(1e-5, 1e5))
+kernel = 1 * RBF(length_scale=2.0, length_scale_bounds=(1e-5, 1e5)) * DotProduct(sigma_0=2.0, sigma_0_bounds=(1e-5, 1e5))
 gaussian_process = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=9)
 
 # Obtains accuracy of initial samples
@@ -113,7 +113,7 @@ for param in parameters_samples:
     f1_samples = np.append(f1_samples, f1)
 
 iterations_since_last_improvement = 0
-while iterations_since_last_improvement < 20:
+while iterations_since_last_improvement < 10:
 
     # Fit the GP model to the samples
     parameters_samples = parameters_samples.reshape(-1,2)
